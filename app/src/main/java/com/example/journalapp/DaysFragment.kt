@@ -69,8 +69,9 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
         }
     }
 
-    override fun onItemClick(position: Int, dayText: String) {
-        if(dayText=="") Toast.makeText(requireContext(), "Date Clicked !!", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(position: Int, dayText: String, dot:View) {
+        if(dayText!="") Toast.makeText(requireContext(), dayText, Toast.LENGTH_SHORT).show()
+
     }
 
 

@@ -22,8 +22,8 @@ class RecyclerAdapter(lst:ArrayList<String>,context:Context ): RecyclerView.Adap
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder:RecyclerAdapter.ViewHolder, position:Int) {
-        holder.txt.text = data_lst.get(position)
+    override fun onBindViewHolder(holder:ViewHolder, position:Int) {
+        holder.txt.text = data_lst[position]
         holder.txt.setOnClickListener {
             Toast.makeText(data_context, "${holder.txt.text} Clicked!!", Toast.LENGTH_SHORT).show()
         }

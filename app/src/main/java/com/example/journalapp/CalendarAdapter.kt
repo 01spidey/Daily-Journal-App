@@ -1,5 +1,7 @@
 package com.example.journalapp
 
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,11 +31,15 @@ class CalendarAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.dayOfMonth.text = daysOfMonth[position]
+        val day = daysOfMonth[position]
+        holder.dayOfMonth.text = day
+        if(day!="") {
+            if(day.toInt()%2==0) holder.dot.setBackgroundResource(R.drawable.circle_dot)
+        }
     }
 
     interface OnItemListener {
-        fun onItemClick(position: Int, dayText: String)
+        fun onItemClick(position: Int, dayText: String, dot:View)
     }
 }
 
@@ -41,6 +47,7 @@ class ViewHolder(itemView: View, private val onItemListener: CalendarAdapter.OnI
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
     val dayOfMonth: TextView = itemView.findViewById(R.id.cellDay)
+    val dot:View = itemView.findViewById(R.id.dot)
 
     init {
         itemView.setOnClickListener(this)
@@ -49,7 +56,8 @@ class ViewHolder(itemView: View, private val onItemListener: CalendarAdapter.OnI
     override fun onClick(view: View?) {
         onItemListener.onItemClick(
             adapterPosition,
-            dayOfMonth.text.toString()
+            dayOfMonth.text.toString(),
+            dot
         )
     }
 
