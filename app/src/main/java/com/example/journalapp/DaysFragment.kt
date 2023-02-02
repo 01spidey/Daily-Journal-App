@@ -44,6 +44,7 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         view.findViewById<TextView>(R.id.month_name).text = month
         view.findViewById<TextView>(R.id.year_name).text = year
         calendarRecyclerView = view.findViewById(R.id.calRecyclerView)
