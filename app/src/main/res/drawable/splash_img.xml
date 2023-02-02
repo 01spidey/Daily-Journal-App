@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/starry_sky"
+        android:width="4000dp"
+        android:height="4000dp"/>
+
+    <item android:drawable="@drawable/reading_time_svg" android:gravity="center" android:height="2000dp" android:width="2450dp"/>
+
+
+
+</layer-list>

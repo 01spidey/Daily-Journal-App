@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "920697579123",
+    "project_id": "daily-journal-app-624cb",
+    "storage_bucket": "daily-journal-app-624cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920697579123:android:eacbd2282dfd4e3d8e6c06",
+        "android_client_info": {
+          "package_name": "com.example.journalapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920697579123-eha70tpgjh4fv0chgtmk5g95660uou1i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJxXjDq6oz5S2NqkuX9HlQr9ziKIztoDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "920697579123-eha70tpgjh4fv0chgtmk5g95660uou1i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
