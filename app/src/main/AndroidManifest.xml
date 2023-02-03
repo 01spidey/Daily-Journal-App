@@ -12,8 +12,9 @@
         android:theme="@style/Theme.JournalApp"
         tools:targetApi="31">
         <activity
-            android:name=".CustomCalendar"
+            android:name=".ViewJournalActivity"
             android:exported="false" />
+        
         <activity
             android:name=".WriteActivity"
             android:exported="false" />
@@ -22,33 +23,27 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ResetPasswordActivity"
             android:exported="false" />
-
         <activity
             android:name=".TestActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".RegSuccessActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".SignInActivity"
             android:exported="false"
             android:theme="@style/Theme.JournalApp" />
-
         <activity
             android:name=".SignUpActivity"
             android:exported="false"
             android:theme="@style/Theme.JournalApp" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />

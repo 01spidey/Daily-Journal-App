@@ -65,13 +65,18 @@ class HomeFragment : Fragment() {
         val year = view?.findViewById<EditText>(R.id.year)?.text
 
         if((year.toString()).length==4){
-            bundle.putString("year", year.toString())
-            bundle.putString("month", month)
-            daysFragment.arguments = bundle
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.main_container, daysFragment)
-                ?.addToBackStack(null)
-                ?.commit()
+            try{
+                year.toString().toInt()
+                bundle.putString("year", year.toString())
+                bundle.putString("month", month)
+                daysFragment.arguments = bundle
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.main_container, daysFragment)
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }catch(_:java.lang.NumberFormatException){
+                Toast.makeText(requireContext(), "Enter a Valid Year !!", Toast.LENGTH_SHORT).show()
+            }
         }
         else Toast.makeText(requireContext(), "Enter a Valid Year !!", Toast.LENGTH_SHORT).show()
     }

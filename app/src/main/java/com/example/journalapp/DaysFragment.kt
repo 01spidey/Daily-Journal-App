@@ -2,6 +2,7 @@ package com.example.journalapp
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.time.LocalDate
@@ -83,11 +85,20 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 //        dialogView.findViewById<TextView>(R.id.dialog).text = "Today is $dayText"
         dialogView.findViewById<TextView>(R.id.title).text = "A Busy Day !!"
         dialogView.findViewById<TextView>(R.id.content).text = "Today was a busy day, I started the day by going for a morning walk and enjoying the beauty of nature..."
+
         val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext(), R.style.dialog)
-        val dialog : AlertDialog = builder.setView(dialogView).create()
+        builder.setView(dialogView).create()
         builder.show()
 
+        val bundle = Bundle()
+
+        dialogView.findViewById<View>(R.id.read).setOnClickListener{
+            val intent : Intent = Intent(activity, ViewJournalActivity::class.java)
+            intent.putExtra(month, "month")
+            intent.putExtra(year, "year")
+            intent.putExtra(dayText, "day")
+            startActivity(intent)
+        }
+
     }
-
-
 }
