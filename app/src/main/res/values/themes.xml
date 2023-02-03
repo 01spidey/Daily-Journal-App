@@ -19,4 +19,15 @@
         <item name="itemIconTint">@color/white</item>
     </style>
 
+    <style name="dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/rounded_dialog</item>
+        <item name="android:windowAnimationStyle">@style/fade_anim</item>
+    </style>
+
+    <style name="fade_anim">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+
+    </style>
+
 </resources>

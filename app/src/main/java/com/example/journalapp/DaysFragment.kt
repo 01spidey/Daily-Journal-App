@@ -1,5 +1,7 @@
 package com.example.journalapp
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -71,7 +73,19 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
     }
 
     override fun onItemClick(position: Int, dayText: String, dot:View) {
-        if(dayText!="") Toast.makeText(requireContext(), dayText, Toast.LENGTH_SHORT).show()
+        if(dayText!="") showAlertDialog(dayText)
+
+    }
+
+    @SuppressLint("MissingInflatedId")
+    private fun showAlertDialog(dayText: String) {
+        val dialogView:View = layoutInflater.inflate(R.layout.dialog_layout, null)
+//        dialogView.findViewById<TextView>(R.id.dialog).text = "Today is $dayText"
+        dialogView.findViewById<TextView>(R.id.title).text = "A Busy Day !!"
+        dialogView.findViewById<TextView>(R.id.content).text = "Today was a busy day, I started the day by going for a morning walk and enjoying the beauty of nature..."
+        val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext(), R.style.dialog)
+        val dialog : AlertDialog = builder.setView(dialogView).create()
+        builder.show()
 
     }
 
