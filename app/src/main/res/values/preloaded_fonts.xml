@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/calligraffitti</item>
+        <item>@font/comfortaa</item>
+        <item>@font/coming_soon</item>
+        <item>@font/handlee</item>
+        <item>@font/patrick_hand_sc</item>
+        <item>@font/poppins_light</item>
+    </array>
+</resources>

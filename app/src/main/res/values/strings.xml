@@ -2,4 +2,19 @@
     <string name="app_name">Journal App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="lipsum">
+        \t\tLorem ipsum dolor sit amet. Qui suscipit cupiditate et consequatur dignissimos est exercitationem error qui reiciendis totam aut veniam assumenda eum fuga nihil in vero commodi. Ex quia asperiores et laudantium quia et molestiae eaque non deserunt voluptatibus.
+        \n\t\tAb unde repellat quo perspiciatis error qui quia Quis! Ut praesentium eveniet id consequatur quia vel rerum reiciendis non natus nihil eos ratione minus? Eum quibusdam perspiciatis ut quia aliquam rem voluptatem similique aut illum maxime et soluta excepturi a sunt dolores.
+        \n\t\tEx odio necessitatibus qui dolore quia et dolorem rerum eum nisi inventore ex sint delectus. Qui eius inventore ea exercitationem debitis non nihil dolorem vel aliquid modi in architecto voluptas qui galisum nesciunt.
+    </string>
+    
+    <string name="grateful">
+        \u2022 I\'m Grateful for being a part of the community !!
+        \n\u2022 I\'m Grateful for finding this journal !!
+        \n\u2022 I\'m Grateful for being a part of the community !!
+    </string>
+
+    <string name="month_year">, %1$s, %2$s</string>
+
 </resources>

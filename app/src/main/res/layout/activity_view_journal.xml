@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/read"
+            android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="start"
@@ -23,39 +23,73 @@
             android:backgroundTint="@color/white"
             android:src="@drawable/back"/>
 
-        <TextView
-            android:id="@+id/textView5"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="A Busy Day !!"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:fontFamily="@font/poppins_bold"
+                android:text="A Busy Day !!"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <View
+                android:id="@+id/edit"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center|end"
+                android:background="@drawable/edit_box"
+                android:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.478" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <LinearLayout
-            android:id="@+id/linearLayout4"
+            android:id="@+id/dateText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
 
             <TextView
+                android:id="@+id/day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="25"
+                android:fontFamily="@font/patrick_hand_sc"
                 android:textColor="@color/white"
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/month_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:letterSpacing=".07"
-                android:text=",March, 2023"
+                android:text=", March, 2023"
+                android:fontFamily="@font/patrick_hand_sc"
+                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
-
+                android:textSize="17sp" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -71,23 +105,74 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"/>
 
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
+                <TextView
+                    android:id="@+id/content"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/rect_card_white_fill"
-                    android:orientation="horizontal"/>
+                    android:text = "@string/lipsum"
+                    android:fontFamily="@font/patrick_hand"
+                    android:padding="15dp"
+                    android:textSize="17sp"
+                    android:lineSpacingExtra="10dp"
+                    android:textAlignment="viewStart"
+                    android:textIsSelectable="true"/>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/rect_card_blue_fill"
-                    android:orientation="horizontal"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="48dp"
+                        android:background="@drawable/rect_card_night"
+                        android:fontFamily="@font/patrick_hand"
+                        android:lineSpacingExtra="10dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="20dp"
+                        android:text="@string/grateful"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/rect_card_blue_fill"
+                        android:fontFamily="@font/poppins_bold"
+                        android:paddingStart="15dp"
+                        android:paddingTop="7dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="7dp"
+                        android:text="Grateful For..."
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="30dp"/>
+
 
             </LinearLayout>
 

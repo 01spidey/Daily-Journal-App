@@ -47,10 +47,11 @@
             android:layout_gravity="start"
             android:padding="5dp"
             android:text = "Content "
+            android:fontFamily="@font/patrick_hand"
             android:textAlignment="viewStart"
             android:lineSpacingExtra="5dp"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="17sp" />
 
         <ImageView
             android:id="@+id/read"

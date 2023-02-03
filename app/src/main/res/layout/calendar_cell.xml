@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
+            android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:textSize="15sp"

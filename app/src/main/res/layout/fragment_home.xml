@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Journals"
+            android:fontFamily="@font/poppins_light"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />

@@ -88,16 +88,15 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 
         val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext(), R.style.dialog)
         builder.setView(dialogView).create()
-        builder.show()
-
-        val bundle = Bundle()
+        val dialog = builder.show()
 
         dialogView.findViewById<View>(R.id.read).setOnClickListener{
             val intent : Intent = Intent(activity, ViewJournalActivity::class.java)
-            intent.putExtra(month, "month")
-            intent.putExtra(year, "year")
-            intent.putExtra(dayText, "day")
+            intent.putExtra("month", month)
+            intent.putExtra( "year", year)
+            intent.putExtra( "day", dayText)
             startActivity(intent)
+            dialog.cancel()
         }
 
     }

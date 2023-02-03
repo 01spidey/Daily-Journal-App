@@ -25,6 +25,7 @@
             android:layout_gravity="center"
             android:letterSpacing=".5"
             android:text="REFLECT"
+            android:fontFamily="@font/poppins_bold"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17sp"
