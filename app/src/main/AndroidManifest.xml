@@ -14,7 +14,7 @@
         <activity
             android:name=".ViewJournalActivity"
             android:exported="false" />
-        
+
         <activity
             android:name=".WriteActivity"
             android:exported="false" />
