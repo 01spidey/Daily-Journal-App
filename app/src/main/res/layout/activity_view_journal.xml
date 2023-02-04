@@ -112,11 +112,12 @@
                     android:background="@drawable/rect_card_white_fill"
                     android:text = "@string/lipsum"
                     android:fontFamily="@font/patrick_hand"
+                    android:textColor="@color/grey"
                     android:padding="15dp"
                     android:textSize="17sp"
                     android:lineSpacingExtra="10dp"
                     android:textAlignment="viewStart"
-                    android:textIsSelectable="true"/>
+                    android:textIsSelectable="true" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
