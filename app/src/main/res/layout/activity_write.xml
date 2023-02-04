@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WriteActivity"
+    android:background="@drawable/starry_sky"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="@drawable/starry_sky">
+    tools:context=".WriteActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_gravity="start"
             android:background="@drawable/circle_dot"
             android:backgroundTint="@color/white"
-            android:src="@drawable/back"/>
+            android:src="@drawable/back" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,11 +34,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_bold"
                 android:hint="Title Here"
-                android:background= "@android:color/transparent"
-                android:textColorHint="@color/white"
                 android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,14 +52,14 @@
                 android:id="@+id/save"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/rect_card_blue_fill"
+                android:background="@drawable/rect_card_white"
                 android:fontFamily="@font/nunito_extrabold"
                 android:gravity="center"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:text="SAVE"
+                android:text="Save"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -83,8 +83,8 @@
                 android:id="@+id/day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="25"
                 android:fontFamily="@font/patrick_hand_sc"
+                android:text="25"
                 android:textColor="@color/white"
                 android:textSize="23sp"
                 android:textStyle="bold" />
@@ -94,12 +94,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
+                android:fontFamily="@font/patrick_hand_sc"
                 android:letterSpacing=".07"
                 android:text=", March, 2023"
-                android:fontFamily="@font/patrick_hand_sc"
-                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -113,57 +113,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"/>
-
-                <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="30dp"-->
-<!--                    android:paddingBottom="20dp">-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView6"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="20dp"-->
-<!--                        android:layout_marginTop="48dp"-->
-<!--                        android:background="@drawable/rect_card_night"-->
-<!--                        android:fontFamily="@font/patrick_hand"-->
-<!--                        android:lineSpacingExtra="10dp"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:paddingStart="10dp"-->
-<!--                        android:paddingTop="20dp"-->
-<!--                        android:paddingEnd="10dp"-->
-<!--                        android:paddingBottom="20dp"-->
-<!--                        android:text="@string/grateful"-->
-<!--                        android:textAlignment="viewStart"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="17sp"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintHorizontal_bias="0.0"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="16dp"-->
-<!--                        android:background="@drawable/rect_card_blue_fill"-->
-<!--                        android:fontFamily="@font/poppins_bold"-->
-<!--                        android:paddingStart="15dp"-->
-<!--                        android:paddingTop="7dp"-->
-<!--                        android:paddingEnd="15dp"-->
-<!--                        android:paddingBottom="7dp"-->
-<!--                        android:text="Grateful For..."-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="18sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintHorizontal_bias="0.0"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    android:layout_height="30dp" />
 
 
                 <EditText
@@ -171,22 +121,55 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rect_card_white_fill"
+                    android:cursorVisible="true"
                     android:fontFamily="@font/patrick_hand"
                     android:gravity="top|start"
                     android:hint="Reflect on Yourself!!"
-                    android:textColor="@color/grey"
-                    android:textCursorDrawable="@color/grey"
-                    android:cursorVisible="true"
                     android:lineSpacingExtra="10dp"
                     android:padding="15dp"
                     android:textAlignment="viewStart"
+                    android:textColor="@color/grey"
+                    android:textCursorDrawable="@color/grey"
                     android:textIsSelectable="true"
                     android:textSize="35sp" />
 
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/rect_card_blue_fill"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingStart="15dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="7dp"
+                    android:text="Gratefulness"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/grateful"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/rect_card_night"
+                    android:hint="I'm Grateful For..."
+                    android:fontFamily="@font/nanum_pen_script"
+                    android:lineSpacingExtra="10dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="23sp" />
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"/>
-
+                    android:layout_height="30dp" />
 
             </LinearLayout>
 

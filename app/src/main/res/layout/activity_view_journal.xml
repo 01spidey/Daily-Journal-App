@@ -119,55 +119,39 @@
                     android:textAlignment="viewStart"
                     android:textIsSelectable="true" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/rect_card_blue_fill"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingStart="15dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="7dp"
+                    android:text="Gratefulness"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/gratefulness"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:paddingBottom="20dp">
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/rect_card_night"
+                    android:text="I'm Grateful For finding the journal 'REFLECT'. It helps me to reflect on myself in my busy life!! I love Reflect!!"
+                    android:fontFamily="@font/nanum_pen_script"
+                    android:lineSpacingExtra="10dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="23sp" />
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="48dp"
-                        android:background="@drawable/rect_card_night"
-                        android:fontFamily="@font/patrick_hand"
-                        android:lineSpacingExtra="10dp"
-                        android:orientation="horizontal"
-                        android:paddingStart="10dp"
-                        android:paddingTop="20dp"
-                        android:paddingEnd="10dp"
-                        android:paddingBottom="20dp"
-                        android:text="@string/grateful"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/white"
-                        android:textSize="17sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/rect_card_blue_fill"
-                        android:fontFamily="@font/poppins_bold"
-                        android:paddingStart="15dp"
-                        android:paddingTop="7dp"
-                        android:paddingEnd="15dp"
-                        android:paddingBottom="7dp"
-                        android:text="Grateful For..."
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <View

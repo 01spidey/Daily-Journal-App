@@ -3,6 +3,7 @@ package com.example.journalapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.journalapp.databinding.ActivityViewJournalBinding
 
 class ViewJournalActivity : AppCompatActivity() {
@@ -17,6 +18,8 @@ class ViewJournalActivity : AppCompatActivity() {
         val month = intent.getStringExtra("month").toString()
         val year = intent.getStringExtra("year").toString()
         val content = binding.content.text.toString()
+        val grateful = binding.gratefulness.text.toString()
+//        Toast.makeText(this, grateful, Toast.LENGTH_SHORT).show()
 
         binding.day.text = day
         binding.monthYear.text = String.format(getString(R.string.month_year), month, year)
@@ -31,6 +34,7 @@ class ViewJournalActivity : AppCompatActivity() {
             intent.putExtra("year", year)
             intent.putExtra("from", "ViewJournal")
             intent.putExtra("content",content)
+            intent.putExtra("grateful", grateful)
             startActivity(intent)
         }
     }
