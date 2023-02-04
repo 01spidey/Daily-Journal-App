@@ -19,7 +19,6 @@ class ViewJournalActivity : AppCompatActivity() {
         val year = intent.getStringExtra("year").toString()
         val content = binding.content.text.toString()
         val grateful = binding.gratefulness.text.toString()
-//        Toast.makeText(this, grateful, Toast.LENGTH_SHORT).show()
 
         binding.day.text = day
         binding.monthYear.text = String.format(getString(R.string.month_year), month, year)

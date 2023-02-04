@@ -27,7 +27,7 @@ class WriteActivity : AppCompatActivity() {
         val day: String
         val month: String
         val year: String
-        var saved: Boolean = false
+        var saved = false
         var count = 0
 
         val from: String = intent.getStringExtra("from").toString()
