@@ -30,7 +30,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -56,7 +56,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textView5"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.478" />
 
@@ -110,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rect_card_white_fill"
-                    android:text = "@string/lipsum"
+                    android:text = "Reflect On Yourself !!"
                     android:fontFamily="@font/patrick_hand"
                     android:textColor="@color/grey"
                     android:padding="15dp"
@@ -136,7 +135,7 @@
                     android:textStyle="bold" />
 
 
-                <EditText
+                <TextView
                     android:id="@+id/gratefulness"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDate
 import java.time.Month
 import java.time.YearMonth
@@ -33,7 +36,8 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
     }
 
     private fun setMonthView() {
-        val calendarAdapter = CalendarAdapter(daysInMonthLst, this)
+
+        val calendarAdapter = CalendarAdapter(daysInMonthLst, this, requireContext(), month, year, getDates())
         val layoutManager = GridLayoutManager(requireContext(), 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
@@ -75,7 +79,16 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
     }
 
     override fun onItemClick(position: Int, dayText: String, dot:View) {
-        if(dayText!="") showAlertDialog(dayText)
+        if(dayText!="") {
+            if(dot.background!=null) showAlertDialog(dayText)
+            else{
+                val intent : Intent = Intent(activity, WriteActivity::class.java)
+                intent.putExtra("month", month)
+                intent.putExtra( "year", year)
+                intent.putExtra( "day", dayText)
+                startActivity(intent)
+            }
+        }
 
     }
 
@@ -99,5 +112,23 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
             dialog.cancel()
         }
 
+    }
+
+    private fun getDates():HashSet<String> {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        val journalDates = HashSet<String>();
+        FirebaseFirestore.getInstance().collection("users").document(userId).collection("journals")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val journal = document.toObject(Journal::class.java)
+                    journalDates.add(journal.date)
+                    Log.d("Date", journal.date)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("Error", "Error getting documents: ", exception)
+            }
+        return journalDates
     }
 }
