@@ -17,8 +17,7 @@ class CalendarAdapter(
     private val onItemListener: OnItemListener,
     private val context : Context,
     private val month :String,
-    private val year :String,
-    private val journalDates : HashSet<String>
+    private val year :String
 ) : RecyclerView.Adapter<ViewHolder>() {
 
 
@@ -30,7 +29,6 @@ class CalendarAdapter(
         )
         val layoutParams: ViewGroup.LayoutParams = view.layoutParams
         layoutParams.height = (parent.height * 0.16666666).toInt()
-        Toast.makeText(context, journalDates.toString(), Toast.LENGTH_SHORT).show()
         return ViewHolder(view, onItemListener)
 
     }
@@ -44,7 +42,7 @@ class CalendarAdapter(
         holder.dayOfMonth.text = day
         if(day!="") {
             val date = "$day-$month-$year"
-            if (journalDates.contains(date)) {
+            if (day.toInt()%2==0) {
                 holder.dot.setBackgroundResource(R.drawable.circle_dot)
             }
         }

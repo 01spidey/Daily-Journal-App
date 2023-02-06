@@ -11,11 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JournalApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".SampleActivity"
+            android:exported="false" />
         <activity
             android:name=".ViewJournalActivity"
             android:exported="false" />
-
         <activity
             android:name=".WriteActivity"
             android:exported="false" />

@@ -37,7 +37,7 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     private fun setMonthView() {
 
-        val calendarAdapter = CalendarAdapter(daysInMonthLst, this, requireContext(), month, year, getDates())
+        val calendarAdapter = CalendarAdapter(daysInMonthLst, this, requireContext(), month, year)
         val layoutManager = GridLayoutManager(requireContext(), 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
@@ -80,14 +80,15 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     override fun onItemClick(position: Int, dayText: String, dot:View) {
         if(dayText!="") {
-            if(dot.background!=null) showAlertDialog(dayText)
-            else{
-                val intent : Intent = Intent(activity, WriteActivity::class.java)
-                intent.putExtra("month", month)
-                intent.putExtra( "year", year)
-                intent.putExtra( "day", dayText)
-                startActivity(intent)
-            }
+//            if(dot.background!=null)
+            showAlertDialog(dayText)
+//            else{
+//                val intent : Intent = Intent(activity, WriteActivity::class.java)
+//                intent.putExtra("month", month)
+//                intent.putExtra( "year", year)
+//                intent.putExtra( "day", dayText)
+//                startActivity(intent)
+//            }
         }
 
     }
@@ -95,7 +96,6 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
     @SuppressLint("MissingInflatedId")
     private fun showAlertDialog(dayText: String) {
         val dialogView:View = layoutInflater.inflate(R.layout.dialog_layout, null)
-//        dialogView.findViewById<TextView>(R.id.dialog).text = "Today is $dayText"
         dialogView.findViewById<TextView>(R.id.title).text = "A Busy Day !!"
         dialogView.findViewById<TextView>(R.id.content).text = "Today was a busy day, I started the day by going for a morning walk and enjoying the beauty of nature..."
 
@@ -104,31 +104,78 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
         val dialog = builder.show()
 
         dialogView.findViewById<View>(R.id.read).setOnClickListener{
-            val intent : Intent = Intent(activity, ViewJournalActivity::class.java)
-            intent.putExtra("month", month)
-            intent.putExtra( "year", year)
-            intent.putExtra( "day", dayText)
-            startActivity(intent)
-            dialog.cancel()
+            startViewJournal(dialog, dayText)
         }
 
     }
 
-    private fun getDates():HashSet<String> {
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        val journalDates = HashSet<String>();
-        FirebaseFirestore.getInstance().collection("users").document(userId).collection("journals")
+    private fun startViewJournal(dialog: AlertDialog?, dayText: String) {
+
+        val db = FirebaseFirestore.getInstance()
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+        db.collection("Journals")
+            .whereEqualTo("date","$dayText-$month-$year")
+            .whereEqualTo("userID",uid)
             .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val journal = document.toObject(Journal::class.java)
-                    journalDates.add(journal.date)
-                    Log.d("Date", journal.date)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    var title_txt = ""
+                    var content_txt = ""
+                    var grateful_txt = ""
+                    for(document in it.result){
+                        Log.d("document", document.toString())
+                        title_txt = document.get("title").toString()
+                        content_txt = document.get("entry").toString()
+                        grateful_txt = document.get("grateful").toString()
+                    }
+
+                    if(content_txt.isEmpty()){ //Now, the 'DaysFragment' is redirected to 'WriteActivity' after the dialog card is clicked!!
+//                        val intent = Intent(requireContext(),WriteActivity::class.java)
+//                        intent.putExtra("day", dayText)
+//                        intent.putExtra("month", month)
+//                        intent.putExtra("year", year)
+//                        intent.putExtra("from", "ViewJournal")
+//                        intent.putExtra("content",content_txt)
+//                        intent.putExtra("grateful", grateful_txt)
+//                        intent.putExtra("title", title_txt)
+//                        startActivity(intent)
+                    }
+                    else{
+                        val intent : Intent = Intent(activity, ViewJournalActivity::class.java)
+                        intent.putExtra("month", month)
+                        intent.putExtra( "year", year)
+                        intent.putExtra( "day", dayText)
+                        intent.putExtra("title", title_txt)
+                        intent.putExtra("content", content_txt)
+                        intent.putExtra("grateful", grateful_txt)
+                        startActivity(intent)
+                    }
+
+                    dialog?.cancel()
+
+                }else{
+                    Log.e("Error fetching document", "Document Varla vro!!")
                 }
             }
-            .addOnFailureListener { exception ->
-                Log.e("Error", "Error getting documents: ", exception)
-            }
-        return journalDates
+
     }
+
+//    private fun getDates():HashSet<String> {
+//        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+//        val journalDates = HashSet<String>();
+//        FirebaseFirestore.getInstance().collection("users").document(userId).collection("journals")
+//            .get()
+//            .addOnSuccessListener { result ->
+//                for (document in result) {
+//                    val journal = document.toObject(Journal::class.java)
+//                    journalDates.add(journal.date)
+//                    Log.d("Date", journal.date)
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.e("Error", "Error getting documents: ", exception)
+//            }
+//        return journalDates
+//    }
 }

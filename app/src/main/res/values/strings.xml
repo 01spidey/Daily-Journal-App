@@ -8,7 +8,7 @@
         \n\t\tAb unde repellat quo perspiciatis error qui quia Quis! Ut praesentium eveniet id consequatur quia vel rerum reiciendis non natus nihil eos ratione minus? Eum quibusdam perspiciatis ut quia aliquam rem voluptatem similique aut illum maxime et soluta excepturi a sunt dolores.
         \n\t\tEx odio necessitatibus qui dolore quia et dolorem rerum eum nisi inventore ex sint delectus. Qui eius inventore ea exercitationem debitis non nihil dolorem vel aliquid modi in architecto voluptas qui galisum nesciunt.
     </string>
-    
+
     <string name="grateful">
         \u2022 I\'m Grateful for being a part of the community !!
         \n\u2022 I\'m Grateful for finding this journal !!
@@ -16,5 +16,8 @@
     </string>
 
     <string name="month_year">, %1$s, %2$s</string>
+
+    <string name="mail">Email</string>
+    <string name="slogan">Reflect Your Inner Self !!</string>
 
 </resources>

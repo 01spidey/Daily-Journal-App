@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +17,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDate
+import java.time.LocalTime
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,8 +62,49 @@ class MainActivity : AppCompatActivity() {
         var fragment: Fragment? = null
 
         binding.write.setOnClickListener {
-            startActivity(Intent(this, WriteActivity::class.java))
-//            finish()
+
+            val db = FirebaseFirestore.getInstance()
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+            val date: LocalDate = LocalDate.now()
+            val day = date.dayOfMonth.toString()
+            val month = "${date.month.toString()[0]}${(date.month.toString().substring(1)).lowercase()}"
+            val year = date.year.toString()
+
+            db.collection("Journals")
+                .whereEqualTo("date","$day-$month-$year")
+                .whereEqualTo("userID",uid)
+                .get()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        var title_txt = ""
+                        var content_txt = ""
+                        var grateful_txt = ""
+                        for(document in it.result){
+                            Log.d("document", document.toString())
+                            title_txt = document.get("title").toString()
+                            content_txt = document.get("entry").toString()
+                            grateful_txt = document.get("grateful").toString()
+                        }
+
+                        val intent : Intent = Intent(this, WriteActivity::class.java)
+
+                        intent.putExtra("month", month)
+                        intent.putExtra( "year", year)
+                        intent.putExtra( "day", day)
+                        intent.putExtra("title", title_txt)
+                        intent.putExtra("content", content_txt)
+                        intent.putExtra("grateful", grateful_txt)
+                        intent.putExtra("from", "Main")
+                        startActivity(intent)
+
+                    }else{
+                        Log.e("Error fetching document", "Document Varla vro!!")
+                    }
+                }
+
+
+
         }
         binding.info.setOnClickListener{
             supportFragmentManager.beginTransaction().replace(R.id.main_container, InfoFragment()).commit()
@@ -72,7 +117,6 @@ class MainActivity : AppCompatActivity() {
         (btmNav.menu.getItem(2)).isEnabled = false
 
         btmNav.setOnItemSelectedListener { item ->
-
             when (item.itemId) {
                 R.id.home -> {
                     fragment = HomeFragment()

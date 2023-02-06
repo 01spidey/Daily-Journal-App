@@ -65,7 +65,10 @@ class HomeFragment : Fragment() {
         val year = view?.findViewById<EditText>(R.id.year)?.text
 
         if((year.toString()).length==4){
-            try{
+            try{    /*Now, you have to create a Hashset called 'JournalDates' and populate it here!! And then you pass it to the 'DaysFragment' which in turn is passed to the
+                      'CalendarAdapter' class to place the red dots on 'OnBindViewHolder()'. So, After placing the red dots properly, Now, when a date is clicked in the 'DaysFragment'
+                       the 'OnItemClick()' function should check for the background and if the background is null, the 'WriteActivity' should start, if a 'Red dot' is present,
+                       the 'showAlertDialog()' function should be called which in turn calls 'startViewJournal()' which starts the 'ViewJournal' activity!!*/
                 year.toString().toInt()
                 bundle.putString("year", year.toString())
                 bundle.putString("month", month)
