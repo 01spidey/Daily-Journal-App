@@ -17,7 +17,8 @@ class CalendarAdapter(
     private val onItemListener: OnItemListener,
     private val context : Context,
     private val month :String,
-    private val year :String
+    private val year :String,
+    private val journalDates : ArrayList<String>
 ) : RecyclerView.Adapter<ViewHolder>() {
 
 
@@ -39,10 +40,11 @@ class CalendarAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val day = daysOfMonth[position]
+        val set = HashSet<String>(journalDates)
         holder.dayOfMonth.text = day
         if(day!="") {
             val date = "$day-$month-$year"
-            if (day.toInt()%2==0) {
+            if (date in set) {
                 holder.dot.setBackgroundResource(R.drawable.circle_dot)
             }
         }

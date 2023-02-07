@@ -25,6 +25,7 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     private lateinit var month: String
     private lateinit var year: String
+    private lateinit var journalDates : ArrayList<String>
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var daysInMonthLst:ArrayList<String>
 
@@ -32,12 +33,13 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
         super.onCreate(savedInstanceState)
         month = arguments?.getString("month").toString()
         year = arguments?.getString("year").toString()
+        journalDates = arguments?.getStringArrayList("journalDates")!!
         initWidgets()
     }
 
     private fun setMonthView() {
 
-        val calendarAdapter = CalendarAdapter(daysInMonthLst, this, requireContext(), month, year)
+        val calendarAdapter = CalendarAdapter(daysInMonthLst, this, requireContext(), month, year, journalDates)
         val layoutManager = GridLayoutManager(requireContext(), 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
@@ -79,16 +81,19 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
     }
 
     override fun onItemClick(position: Int, dayText: String, dot:View) {
+
+//        val set = HashSet<String>(journalDates)
+//        val date = "$dayText-$month-$year"
+
         if(dayText!="") {
-//            if(dot.background!=null)
-            showAlertDialog(dayText)
-//            else{
-//                val intent : Intent = Intent(activity, WriteActivity::class.java)
-//                intent.putExtra("month", month)
-//                intent.putExtra( "year", year)
-//                intent.putExtra( "day", dayText)
-//                startActivity(intent)
-//            }
+            if(dot.background!=null) showAlertDialog(dayText)
+            else{
+                val intent : Intent = Intent(activity, WriteActivity::class.java)
+                intent.putExtra("month", month)
+                intent.putExtra( "year", year)
+                intent.putExtra( "day", dayText)
+                startActivity(intent)
+            }
         }
 
     }

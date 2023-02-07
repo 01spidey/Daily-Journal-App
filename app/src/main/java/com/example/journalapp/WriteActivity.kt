@@ -56,10 +56,10 @@ class WriteActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (from == "Main") {
+//                if (from == "Main") {
                     if (s?.isNotEmpty() == true) content.textSize = 17f
                     else content.textSize = 40f
-                }
+//                }
             }
         })
 
