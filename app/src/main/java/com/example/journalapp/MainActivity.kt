@@ -72,7 +72,9 @@ class MainActivity : AppCompatActivity() {
             val year = date.year.toString()
 
             db.collection("Journals")
-                .whereEqualTo("date","$day-$month-$year")
+                .whereEqualTo("day",day)
+                .whereEqualTo("month", month)
+                .whereEqualTo("year",year)
                 .whereEqualTo("userID",uid)
                 .get()
                 .addOnCompleteListener {

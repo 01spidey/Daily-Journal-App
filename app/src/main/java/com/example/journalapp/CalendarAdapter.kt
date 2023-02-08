@@ -43,8 +43,7 @@ class CalendarAdapter(
         val set = HashSet<String>(journalDates)
         holder.dayOfMonth.text = day
         if(day!="") {
-            val date = "$day-$month-$year"
-            if (date in set) {
+            if (day in set) {
                 holder.dot.setBackgroundResource(R.drawable.circle_dot)
             }
         }

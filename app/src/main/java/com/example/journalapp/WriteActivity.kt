@@ -29,10 +29,8 @@ class WriteActivity : AppCompatActivity() {
         binding.monthYear.text = String.format(getString(R.string.month_year), month, year)
 
 
-        var saved: Boolean = false
+        var saved = false
         var count = 0
-
-        val from: String = intent.getStringExtra("from").toString()
 
         val grateful = binding.grateful
         val content = binding.content
@@ -56,10 +54,8 @@ class WriteActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                if (from == "Main") {
                     if (s?.isNotEmpty() == true) content.textSize = 17f
                     else content.textSize = 40f
-//                }
             }
         })
 
@@ -70,11 +66,13 @@ class WriteActivity : AppCompatActivity() {
             else {
                 Toast.makeText(this, "Journal is Saving !!", Toast.LENGTH_SHORT).show()
                 val userId = FirebaseAuth.getInstance().currentUser!!.uid
-                val date = "$day-$month-$year"
-                val journalRef = FirebaseFirestore.getInstance().collection("Journals").document("$userId-$date")
+//                val date = "$day-$month-$year"
+                val journalRef = FirebaseFirestore.getInstance().collection("Journals").document("$userId-$day-$month-$year")
                 val journal = HashMap<String, String>()
                 journal["title"] = binding.title.text.toString()
-                journal["date"] = date
+                journal["day"] = day
+                journal["month"] = month
+                journal["year"] = year
                 journal["entry"] = binding.content.text.toString()
                 journal["grateful"] = binding.grateful.text.toString()
                 journal["userID"] = userId

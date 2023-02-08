@@ -25,9 +25,9 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     private lateinit var month: String
     private lateinit var year: String
-    private lateinit var journalDates : ArrayList<String>
+    private lateinit var journalDates: ArrayList<String>
     private lateinit var calendarRecyclerView: RecyclerView
-    private lateinit var daysInMonthLst:ArrayList<String>
+    private lateinit var daysInMonthLst: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,8 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     private fun setMonthView() {
 
-        val calendarAdapter = CalendarAdapter(daysInMonthLst, this, requireContext(), month, year, journalDates)
+        val calendarAdapter =
+            CalendarAdapter(daysInMonthLst, this, requireContext(), month, year, journalDates)
         val layoutManager = GridLayoutManager(requireContext(), 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
@@ -67,31 +68,31 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
     }
 
 
-    private fun daysInMonthArray(month: String, year: String){
+    private fun daysInMonthArray(month: String, year: String) {
         val date = LocalDate.of(year.toInt(), Month.valueOf(month.uppercase()), 1)
-        val yearMonth:YearMonth = YearMonth.from(date)
-        val daysInMonth:Int = yearMonth.lengthOfMonth()
-        val firstOfMonth:LocalDate = date.withDayOfMonth(1)
+        val yearMonth: YearMonth = YearMonth.from(date)
+        val daysInMonth: Int = yearMonth.lengthOfMonth()
+        val firstOfMonth: LocalDate = date.withDayOfMonth(1)
         val dayOfWeek: Int = firstOfMonth.dayOfWeek.value
 
-        for(i in 1..42){
-            if(i<=dayOfWeek || i>daysInMonth+dayOfWeek) daysInMonthLst.add("")
-            else daysInMonthLst.add("${i-dayOfWeek}")
+        for (i in 1..42) {
+            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek) daysInMonthLst.add("")
+            else daysInMonthLst.add("${i - dayOfWeek}")
         }
     }
 
-    override fun onItemClick(position: Int, dayText: String, dot:View) {
+    override fun onItemClick(position: Int, dayText: String, dot: View) {
 
 //        val set = HashSet<String>(journalDates)
 //        val date = "$dayText-$month-$year"
 
-        if(dayText!="") {
-            if(dot.background!=null) showAlertDialog(dayText)
-            else{
-                val intent : Intent = Intent(activity, WriteActivity::class.java)
+        if (dayText != "") {
+            if (dot.background != null) showAlertDialog(dayText)
+            else {
+                val intent: Intent = Intent(activity, WriteActivity::class.java)
                 intent.putExtra("month", month)
-                intent.putExtra( "year", year)
-                intent.putExtra( "day", dayText)
+                intent.putExtra("year", year)
+                intent.putExtra("day", dayText)
                 startActivity(intent)
             }
         }
@@ -100,15 +101,16 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     @SuppressLint("MissingInflatedId")
     private fun showAlertDialog(dayText: String) {
-        val dialogView:View = layoutInflater.inflate(R.layout.dialog_layout, null)
+        val dialogView: View = layoutInflater.inflate(R.layout.dialog_layout, null)
         dialogView.findViewById<TextView>(R.id.title).text = "A Busy Day !!"
-        dialogView.findViewById<TextView>(R.id.content).text = "Today was a busy day, I started the day by going for a morning walk and enjoying the beauty of nature..."
+        dialogView.findViewById<TextView>(R.id.content).text =
+            "Today was a busy day, I started the day by going for a morning walk and enjoying the beauty of nature..."
 
-        val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext(), R.style.dialog)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext(), R.style.dialog)
         builder.setView(dialogView).create()
         val dialog = builder.show()
 
-        dialogView.findViewById<View>(R.id.read).setOnClickListener{
+        dialogView.findViewById<View>(R.id.read).setOnClickListener {
             startViewJournal(dialog, dayText)
         }
 
@@ -120,67 +122,39 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
 
         db.collection("Journals")
-            .whereEqualTo("date","$dayText-$month-$year")
-            .whereEqualTo("userID",uid)
+            .whereEqualTo("day", dayText)
+            .whereEqualTo("month", month)
+            .whereEqualTo("year", year)
+            .whereEqualTo("userID", uid)
             .get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     var title_txt = ""
                     var content_txt = ""
                     var grateful_txt = ""
-                    for(document in it.result){
+                    for (document in it.result) {
                         Log.d("document", document.toString())
                         title_txt = document.get("title").toString()
                         content_txt = document.get("entry").toString()
                         grateful_txt = document.get("grateful").toString()
                     }
 
-                    if(content_txt.isEmpty()){ //Now, the 'DaysFragment' is redirected to 'WriteActivity' after the dialog card is clicked!!
-//                        val intent = Intent(requireContext(),WriteActivity::class.java)
-//                        intent.putExtra("day", dayText)
-//                        intent.putExtra("month", month)
-//                        intent.putExtra("year", year)
-//                        intent.putExtra("from", "ViewJournal")
-//                        intent.putExtra("content",content_txt)
-//                        intent.putExtra("grateful", grateful_txt)
-//                        intent.putExtra("title", title_txt)
-//                        startActivity(intent)
-                    }
-                    else{
-                        val intent : Intent = Intent(activity, ViewJournalActivity::class.java)
-                        intent.putExtra("month", month)
-                        intent.putExtra( "year", year)
-                        intent.putExtra( "day", dayText)
-                        intent.putExtra("title", title_txt)
-                        intent.putExtra("content", content_txt)
-                        intent.putExtra("grateful", grateful_txt)
-                        startActivity(intent)
-                    }
+
+                    val intent: Intent = Intent(activity, ViewJournalActivity::class.java)
+                    intent.putExtra("month", month)
+                    intent.putExtra("year", year)
+                    intent.putExtra("day", dayText)
+                    intent.putExtra("title", title_txt)
+                    intent.putExtra("content", content_txt)
+                    intent.putExtra("grateful", grateful_txt)
+                    startActivity(intent)
 
                     dialog?.cancel()
 
-                }else{
+                } else {
                     Log.e("Error fetching document", "Document Varla vro!!")
                 }
             }
 
     }
-
-//    private fun getDates():HashSet<String> {
-//        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-//        val journalDates = HashSet<String>();
-//        FirebaseFirestore.getInstance().collection("users").document(userId).collection("journals")
-//            .get()
-//            .addOnSuccessListener { result ->
-//                for (document in result) {
-//                    val journal = document.toObject(Journal::class.java)
-//                    journalDates.add(journal.date)
-//                    Log.d("Date", journal.date)
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.e("Error", "Error getting documents: ", exception)
-//            }
-//        return journalDates
-//    }
 }

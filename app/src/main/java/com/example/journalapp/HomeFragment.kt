@@ -87,12 +87,13 @@ class HomeFragment : Fragment() {
 
                 db.collection("Journals")
                     .whereEqualTo("userID",uid)
+                    .whereEqualTo("month", month)
                     .get()
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
                             for(document in it.result){
-                                Log.d("journalDate", document.get("date").toString())
-                                journalDates.add(document.get("date").toString())
+                                Log.d("journalDate", document.get("day").toString())
+                                journalDates.add(document.get("day").toString())
                             }
                             Log.d("journalDates", journalDates.toString())
                             year.toInt()
