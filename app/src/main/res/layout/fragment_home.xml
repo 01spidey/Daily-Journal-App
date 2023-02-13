@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:hint="Search journal by date or name"
+            android:textColorHint="@color/grey"
             android:padding="10dp"
             android:textColor="@color/black"
             android:textSize="15sp" />
@@ -109,6 +110,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/rect_card_white_fill"
                     android:hint="Enter Year"
+                    android:textColorHint="@color/grey"
                     android:textSize="17sp"
                     android:gravity="center"
                     android:padding="10dp"

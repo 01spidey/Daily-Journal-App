@@ -125,6 +125,7 @@
                     android:fontFamily="@font/patrick_hand"
                     android:gravity="top|start"
                     android:hint="Reflect on Yourself!!"
+                    android:textColorHint="@color/grey"
                     android:lineSpacingExtra="10dp"
                     android:padding="15dp"
                     android:textAlignment="viewStart"

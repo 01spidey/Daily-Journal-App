@@ -1,6 +1,7 @@
 package com.example.journalapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -78,7 +79,11 @@ class WriteActivity : AppCompatActivity() {
                 journal["userID"] = userId
 
                 journalRef.set(journal)
-                    .addOnSuccessListener { Toast.makeText(this, "Journal is Saving !!", Toast.LENGTH_SHORT).show() }
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Journal is Saving !!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
                     .addOnFailureListener { Toast.makeText(this, "Error Saving the Journal !!", Toast.LENGTH_SHORT).show() }
 
                 saved = true

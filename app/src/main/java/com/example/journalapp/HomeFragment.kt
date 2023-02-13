@@ -81,9 +81,6 @@ class HomeFragment : Fragment() {
                 val db = FirebaseFirestore.getInstance()
                 val uid = FirebaseAuth.getInstance().currentUser!!.uid
                 val journalDates = ArrayList<String>()
-//                val date: LocalDate = LocalDate.now()
-//                val day = date.dayOfMonth.toString()
-//                val month = "${date.month.toString()[0]}${(date.month.toString().substring(1)).lowercase()}"
 
                 db.collection("Journals")
                     .whereEqualTo("userID",uid)
@@ -105,6 +102,10 @@ class HomeFragment : Fragment() {
                                 ?.replace(R.id.main_container, daysFragment)
                                 ?.addToBackStack(null)
                                 ?.commit()
+
+                            val manager = requireActivity().supportFragmentManager
+                            manager.beginTransaction().remove(this).commit()
+
                         }else{
                             Log.e("Error fetching document", "Document Varla vro!!")
                         }

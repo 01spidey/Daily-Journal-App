@@ -55,6 +55,7 @@ class ViewJournalActivity : AppCompatActivity() {
             intent.putExtra("grateful", grateful_txt)
             intent.putExtra("title", title_txt)
             startActivity(intent)
+            finish()
         }
     }
 }

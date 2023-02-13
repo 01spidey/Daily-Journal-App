@@ -148,7 +148,8 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
                     intent.putExtra("content", content_txt)
                     intent.putExtra("grateful", grateful_txt)
                     startActivity(intent)
-
+                    val manager = requireActivity().supportFragmentManager
+                    manager.beginTransaction().remove(this).commit()
                     dialog?.cancel()
 
                 } else {
