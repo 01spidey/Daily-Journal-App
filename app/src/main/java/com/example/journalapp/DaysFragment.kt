@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.time.LocalDate
 import java.time.Month
 import java.time.YearMonth
+import kotlin.math.min
 
 
 class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
@@ -38,9 +39,8 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
     }
 
     private fun setMonthView() {
-
         val calendarAdapter =
-            CalendarAdapter(daysInMonthLst, this, requireContext(), month, year, journalDates)
+            CalendarAdapter(daysInMonthLst, this, journalDates)
         val layoutManager = GridLayoutManager(requireContext(), 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
@@ -83,11 +83,48 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     override fun onItemClick(position: Int, dayText: String, dot: View) {
 
-//        val set = HashSet<String>(journalDates)
-//        val date = "$dayText-$month-$year"
-
         if (dayText != "") {
-            if (dot.background != null) showAlertDialog(dayText)
+            if (dot.background != null) {
+                val db = FirebaseFirestore.getInstance()
+                val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+                db.collection("Journals")
+                    .whereEqualTo("day", dayText)
+                    .whereEqualTo("month", month)
+                    .whereEqualTo("year", year)
+                    .whereEqualTo("userID", uid)
+                    .get()
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            var title_txt = ""
+                            var content_txt = ""
+                            var grateful_txt = ""
+                            var liked  = ""
+                            for (document in it.result) {
+                                Log.d("document", document.toString())
+                                title_txt = document.get("title").toString()
+                                content_txt = document.get("entry").toString()
+                                grateful_txt = document.get("grateful").toString()
+                                liked = document.get("liked").toString()
+                            }
+                            val intent: Intent = Intent(activity, ViewJournalActivity::class.java)
+
+                            intent.putExtra("month", month)
+                            intent.putExtra("year", year)
+                            intent.putExtra("day", dayText)
+                            intent.putExtra("title", title_txt)
+                            intent.putExtra("content", content_txt)
+                            intent.putExtra("grateful", grateful_txt)
+                            intent.putExtra("uid",uid)
+                            intent.putExtra("liked",liked)
+
+                            showAlertDialog(dayText,title_txt, content_txt, intent)
+                        }
+                        else {
+                            Log.e("Error fetching document", "Document Varla vro!!")
+                        }
+                    }
+            }
             else {
                 val intent: Intent = Intent(activity, WriteActivity::class.java)
                 intent.putExtra("month", month)
@@ -100,62 +137,20 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
     }
 
     @SuppressLint("MissingInflatedId")
-    private fun showAlertDialog(dayText: String) {
+    private fun showAlertDialog(dayText: String, title_txt:String, content_txt:String, intent: Intent) {
         val dialogView: View = layoutInflater.inflate(R.layout.dialog_layout, null)
-        dialogView.findViewById<TextView>(R.id.title).text = "A Busy Day !!"
-        dialogView.findViewById<TextView>(R.id.content).text =
-            "Today was a busy day, I started the day by going for a morning walk and enjoying the beauty of nature..."
+        dialogView.findViewById<TextView>(R.id.title).text = title_txt
+        dialogView.findViewById<TextView>(R.id.content).text = content_txt.substring(0, min(content_txt.length, content_txt.length/3))+"..."
+        dialogView.findViewById<TextView>(R.id.date).text = "$dayText,$month,$year"
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext(), R.style.dialog)
         builder.setView(dialogView).create()
         val dialog = builder.show()
 
         dialogView.findViewById<View>(R.id.read).setOnClickListener {
-            startViewJournal(dialog, dayText)
+            dialog.cancel()
+            startActivity(intent)
         }
-
     }
 
-    private fun startViewJournal(dialog: AlertDialog?, dayText: String) {
-
-        val db = FirebaseFirestore.getInstance()
-        val uid = FirebaseAuth.getInstance().currentUser!!.uid
-
-        db.collection("Journals")
-            .whereEqualTo("day", dayText)
-            .whereEqualTo("month", month)
-            .whereEqualTo("year", year)
-            .whereEqualTo("userID", uid)
-            .get()
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    var title_txt = ""
-                    var content_txt = ""
-                    var grateful_txt = ""
-                    for (document in it.result) {
-                        Log.d("document", document.toString())
-                        title_txt = document.get("title").toString()
-                        content_txt = document.get("entry").toString()
-                        grateful_txt = document.get("grateful").toString()
-                    }
-
-
-                    val intent: Intent = Intent(activity, ViewJournalActivity::class.java)
-                    intent.putExtra("month", month)
-                    intent.putExtra("year", year)
-                    intent.putExtra("day", dayText)
-                    intent.putExtra("title", title_txt)
-                    intent.putExtra("content", content_txt)
-                    intent.putExtra("grateful", grateful_txt)
-                    startActivity(intent)
-                    val manager = requireActivity().supportFragmentManager
-                    manager.beginTransaction().remove(this).commit()
-                    dialog?.cancel()
-
-                } else {
-                    Log.e("Error fetching document", "Document Varla vro!!")
-                }
-            }
-
-    }
 }
