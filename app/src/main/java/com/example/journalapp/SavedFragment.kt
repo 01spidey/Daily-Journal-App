@@ -1,17 +1,17 @@
 package com.example.journalapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 
 class SavedFragment : Fragment(),SavedAdapter.OnItemListener{
 
@@ -19,6 +19,7 @@ class SavedFragment : Fragment(),SavedAdapter.OnItemListener{
     private lateinit var savedAdapter: SavedAdapter
     private lateinit var likedJournals:ArrayList<Journal>
     private lateinit var db:FirebaseFirestore
+    private lateinit var dialog_layout:View
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,14 +49,26 @@ class SavedFragment : Fragment(),SavedAdapter.OnItemListener{
                     for(document in it.result){
                         likedJournals.add(document.toObject(Journal::class.java))
                     }
-                    val savedAdapter = SavedAdapter(this, likedJournals)
+                    savedAdapter = SavedAdapter(this, likedJournals,requireContext())
                     recyclerView.adapter = savedAdapter
+
                 }else Log.d("ERROR : ", "Error fetching the documents!!")
             }
     }
 
-    override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
-    }
 
+    override fun onItemClick(position: Int, layout: View) {
+
+            val journalEntry:Journal  = likedJournals[position]
+            val intent: Intent = Intent(context, ViewJournalActivity::class.java)
+            intent.putExtra("month", journalEntry.month)
+            intent.putExtra("year", journalEntry.year)
+            intent.putExtra("day", journalEntry.day)
+            intent.putExtra("title", journalEntry.title)
+            intent.putExtra("content", journalEntry.entry)
+            intent.putExtra("grateful", journalEntry.grateful)
+            intent.putExtra("uid",journalEntry.userID)
+            intent.putExtra("liked",journalEntry.liked.toString())
+            startActivity(intent)
+    }
 }

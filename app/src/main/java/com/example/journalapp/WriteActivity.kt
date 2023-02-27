@@ -41,6 +41,7 @@ class WriteActivity : AppCompatActivity() {
         val title_txt = intent.getStringExtra("title")
         val content_txt = intent.getStringExtra("content")
         val grateful_txt = intent.getStringExtra("grateful")
+        val liked_txt = intent.getStringExtra("liked")
 
         if(content_txt?.isNotEmpty() == true){
             content.textSize = 17f
@@ -69,7 +70,7 @@ class WriteActivity : AppCompatActivity() {
                 val userId = FirebaseAuth.getInstance().currentUser!!.uid
 //                val date = "$day-$month-$year"
                 val journalRef = FirebaseFirestore.getInstance().collection("Journals").document("$userId-$day-$month-$year")
-                val journal = HashMap<String, String>()
+                val journal = HashMap<String, Any>()
                 journal["title"] = binding.title.text.toString()
                 journal["day"] = day
                 journal["month"] = month
@@ -77,6 +78,7 @@ class WriteActivity : AppCompatActivity() {
                 journal["entry"] = binding.content.text.toString()
                 journal["grateful"] = binding.grateful.text.toString()
                 journal["userID"] = userId
+                journal["liked"] = (liked_txt=="true")
 
                 journalRef.set(journal)
                     .addOnSuccessListener {

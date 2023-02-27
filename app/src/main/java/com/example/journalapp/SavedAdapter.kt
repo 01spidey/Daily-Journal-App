@@ -1,19 +1,20 @@
 package com.example.journalapp
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.min
 
 class SavedAdapter(
     private val onItemListener: OnItemListener,
-    private val likedJournals:ArrayList<Journal>
+    private val likedJournals:ArrayList<Journal>,
+    private val context:Context
 ): RecyclerView.Adapter<SavedViewHolder>( ) {
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedViewHolder {
         val context:Context = parent.context
@@ -39,8 +40,9 @@ class SavedAdapter(
     }
 
     interface OnItemListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(position: Int, layout:View)
     }
+
 
 }
 
@@ -57,9 +59,11 @@ class SavedViewHolder(itemView: View, private val onItemListener: SavedAdapter.O
         itemView.setOnClickListener(this)
     }
 
+
     override fun onClick(view: View?) {
         onItemListener.onItemClick(
-            adapterPosition
+            adapterPosition,
+            itemView.findViewById(R.id.read)
         )
     }
 }

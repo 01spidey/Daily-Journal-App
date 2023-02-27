@@ -92,6 +92,7 @@ class ViewJournalActivity : AppCompatActivity() {
             intent.putExtra("content", content_txt)
             intent.putExtra("grateful", grateful_txt)
             intent.putExtra("title", title_txt)
+            intent.putExtra("liked", liked.toString())
             startActivity(intent)
             finish()
         }
