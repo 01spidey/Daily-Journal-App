@@ -1,18 +1,14 @@
 package com.example.journalapp
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import com.example.journalapp.databinding.ActivityWriteBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.time.LocalDate
 
 class WriteActivity : AppCompatActivity() {
 
@@ -20,7 +16,7 @@ class WriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write)
 
-        val binding = ActivityWriteBinding.inflate(layoutInflater)
+        val binding = ActivityWriteBinding.inflate(layoutInflater);
         setContentView(binding.root)
 
         val day: String = intent.getStringExtra("day").toString()

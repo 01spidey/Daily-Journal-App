@@ -21,8 +21,8 @@
         android:icon="@drawable/bookmarks_2"/>
 
     <item
-        android:id="@+id/profile"
-        android:title="Profile"
-        android:icon="@drawable/profile"/>
+        android:id="@+id/chat"
+        android:title="Chat"
+        android:icon="@drawable/chat"/>
 
 </menu>

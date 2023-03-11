@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
         supportFragmentManager.beginTransaction().replace(R.id.main_container, HomeFragment())
             .commit()
         var fragment: Fragment? = null
@@ -139,9 +140,14 @@ class MainActivity : AppCompatActivity() {
                     flag = true
                 }
 
-                R.id.profile -> {
-                    fragment = ProfileFragment()
+                R.id.chat -> {
+                    // Navigate to another activity
+                    val intent = Intent(this, ChatActivity::class.java)
+                    startActivity(intent)
+                    true
                 }
+
+
             }
 
             if (fragment != null) {
