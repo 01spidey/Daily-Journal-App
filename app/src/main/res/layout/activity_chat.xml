@@ -15,6 +15,7 @@
         android:layout_alignParentTop="true"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
+
         <ImageView
             android:id="@+id/back"
             android:layout_width="30dp"
@@ -28,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rect_card_night"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/nunito_bold"
             android:letterSpacing=".2"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
@@ -52,6 +53,13 @@
         android:layout_above="@id/bottom_layout"
         android:layout_below="@id/top_bar"/>
 
+    <ImageView
+        android:id="@+id/welcome_image"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:background="@drawable/getting_coffee"
+        android:layout_centerInParent="true"/>
+
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
@@ -63,14 +71,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:background="@drawable/rect_card_white_fill"
+            android:fontFamily="@font/nunito"
             android:hint="Speak your Heart Out!!"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:padding="10dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"
-            android:background="@drawable/rect_card_white_fill"/>
+            android:textColor="@color/black" />
 
         <ImageButton
             android:id="@+id/send_btn"
