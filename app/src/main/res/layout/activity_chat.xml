@@ -60,37 +60,36 @@
         android:background="@drawable/getting_coffee"
         android:layout_centerInParent="true"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/message_edit_text"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:background="@drawable/rect_card_white_fill"
             android:fontFamily="@font/nunito"
             android:hint="Speak your Heart Out!!"
-            android:padding="10dp"
+            android:padding="8dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="13sp"/>
 
         <ImageButton
-            android:id="@+id/send_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:padding="5dp"
-            android:background="@drawable/send"/>
+            android:id= "@+id/send_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/send"
+            android:backgroundTint="@color/white"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

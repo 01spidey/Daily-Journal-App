@@ -87,26 +87,28 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
             if (dot.background != null) {
                 val db = FirebaseFirestore.getInstance()
                 val uid = FirebaseAuth.getInstance().currentUser!!.uid
+                val doc_id = "$uid-$dayText-$month-$year"
+
 
                 db.collection("Journals")
-                    .whereEqualTo("day", dayText)
-                    .whereEqualTo("month", month)
-                    .whereEqualTo("year", year)
-                    .whereEqualTo("userID", uid)
+                    .document(doc_id)
                     .get()
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
                             var title_txt = ""
                             var content_txt = ""
                             var grateful_txt = ""
-                            var liked  = ""
-                            for (document in it.result) {
-                                Log.d("document", document.toString())
-                                title_txt = document.get("title").toString()
-                                content_txt = document.get("entry").toString()
-                                grateful_txt = document.get("grateful").toString()
-                                liked = document.get("liked").toString()
-                            }
+                            var liked = ""
+
+                            val document = it.result
+
+                            Log.d("document", document.toString())
+
+                            title_txt = document.get("title").toString()
+                            content_txt = document.get("entry").toString()
+                            grateful_txt = document.get("grateful").toString()
+                            liked = document.get("liked").toString()
+
                             val intent: Intent = Intent(activity, ViewJournalActivity::class.java)
 
                             intent.putExtra("month", month)
@@ -115,32 +117,37 @@ class DaysFragment : Fragment(), CalendarAdapter.OnItemListener {
                             intent.putExtra("title", title_txt)
                             intent.putExtra("content", content_txt)
                             intent.putExtra("grateful", grateful_txt)
-                            intent.putExtra("uid",uid)
-                            intent.putExtra("liked",liked)
+                            intent.putExtra("uid", uid)
+                            intent.putExtra("liked", liked)
 
-                            showAlertDialog(dayText,title_txt, content_txt, intent)
-                        }
-                        else {
+                            showAlertDialog(dayText, title_txt, content_txt, intent)
+                        } else {
                             Log.e("Error fetching document", "Document Varla vro!!")
                         }
                     }
-            }
-            else {
+            } else {
                 val intent: Intent = Intent(activity, WriteActivity::class.java)
                 intent.putExtra("month", month)
                 intent.putExtra("year", year)
                 intent.putExtra("day", dayText)
                 startActivity(intent)
+
             }
         }
 
     }
 
     @SuppressLint("MissingInflatedId")
-    private fun showAlertDialog(dayText: String, title_txt:String, content_txt:String, intent: Intent) {
+    private fun showAlertDialog(
+        dayText: String,
+        title_txt: String,
+        content_txt: String,
+        intent: Intent
+    ) {
         val dialogView: View = layoutInflater.inflate(R.layout.dialog_layout, null)
         dialogView.findViewById<TextView>(R.id.title).text = title_txt
-        dialogView.findViewById<TextView>(R.id.content).text = content_txt.substring(0, min(content_txt.length, content_txt.length/3))+"..."
+        dialogView.findViewById<TextView>(R.id.content).text =
+            content_txt.substring(0, min(content_txt.length, content_txt.length / 3)) + "..."
         dialogView.findViewById<TextView>(R.id.date).text = "$dayText,$month,$year"
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext(), R.style.dialog)

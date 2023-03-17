@@ -22,6 +22,12 @@
         <item name="itemIconTint">@color/white</item>
     </style>
 
+    <style name="RoundedSquare">
+        <item name="cornerSize">10%</item>
+    </style>
+
+
+
     <style name="dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/rounded_dialog</item>
         <item name="android:windowAnimationStyle">@style/fade_anim</item>

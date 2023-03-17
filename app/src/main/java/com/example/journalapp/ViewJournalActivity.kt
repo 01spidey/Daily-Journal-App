@@ -43,6 +43,7 @@ class ViewJournalActivity : AppCompatActivity() {
         val title_txt = intent.getStringExtra("title")
         val content_txt = intent.getStringExtra("content")
         val grateful_txt = intent.getStringExtra("grateful")
+//        val doc_id = intent.getStringExtra("doc_id")
 
         title.text = title_txt
         content.text = content_txt
@@ -71,13 +72,13 @@ class ViewJournalActivity : AppCompatActivity() {
                         Toast.makeText(this, "Added to Liked Journals!!", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { Log.d("ERROR", "Failed to write!!") }
-            }
-            else {
+            } else {
                 binding.like.setBackgroundResource(R.drawable.heart_outline)
                 liked = false
                 journalRef.update("liked", false)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Removed from Liked Journals!!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Removed from Liked Journals!!", Toast.LENGTH_SHORT)
+                            .show()
                     }
                     .addOnFailureListener { Log.d("ERROR", "Failed to write!!") }
             }
@@ -95,6 +96,30 @@ class ViewJournalActivity : AppCompatActivity() {
             intent.putExtra("liked", liked.toString())
             startActivity(intent)
             finish()
+        }
+
+        binding.delete.setOnClickListener {
+            Toast.makeText(this, "Journal Successfully Deleted !!", Toast.LENGTH_SHORT).show()
+
+            val db = FirebaseFirestore.getInstance()
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
+            val doc_id = "$uid-$dayText-$monthText-$yearText"
+            val docRef = db.collection("Journals").document(doc_id)
+
+            docRef.delete()
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Journal Successfully Deleted !!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                .addOnFailureListener {
+                    Log.d("ERROR","Error Vro !!");
+                }
+
+        }
+
+        binding.emotion.setOnClickListener{
+            startActivity(Intent(this, ReflectionActivity::class.java))
         }
     }
 

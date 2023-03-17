@@ -33,7 +33,7 @@ class RecyclerAdapter(lst:ArrayList<String>,context:Context ): RecyclerView.Adap
         return data_lst.size;
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    open class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var txt : TextView = itemView.findViewById(R.id.txt)
     }
 }

@@ -69,6 +69,7 @@ class SavedFragment : Fragment(),SavedAdapter.OnItemListener{
             intent.putExtra("grateful", journalEntry.grateful)
             intent.putExtra("uid",journalEntry.userID)
             intent.putExtra("liked",journalEntry.liked.toString())
+
             startActivity(intent)
     }
 }
