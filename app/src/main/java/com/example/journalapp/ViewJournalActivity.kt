@@ -19,8 +19,11 @@ class ViewJournalActivity : AppCompatActivity() {
     private lateinit var monthText: String
     private lateinit var yearText: String
     private lateinit var liked_txt: String
-    private lateinit var uid: String
-    private lateinit var journalRef: DocumentReference
+
+    val db = FirebaseFirestore.getInstance()
+    val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_journal)
@@ -35,6 +38,8 @@ class ViewJournalActivity : AppCompatActivity() {
         binding.day.text = dayText
         binding.monthYear.text = String.format(getString(R.string.month_year), monthText, yearText)
 
+        val doc_id = "$uid-$dayText-$monthText-$yearText"
+        val journalRef = db.collection("Journals").document(doc_id)
 
         val title = binding.title
         val content = binding.content
@@ -58,11 +63,6 @@ class ViewJournalActivity : AppCompatActivity() {
 
         if (liked) binding.like.setBackgroundResource(R.drawable.heart_fill)
 
-        uid = FirebaseAuth.getInstance().currentUser!!.uid
-        journalRef = FirebaseFirestore.getInstance().collection("Journals")
-            .document("$uid-$dayText-$monthText-$yearText")
-
-
         binding.like.setOnClickListener {
             if (!liked) {
                 binding.like.setBackgroundResource(R.drawable.heart_fill)
@@ -84,6 +84,7 @@ class ViewJournalActivity : AppCompatActivity() {
             }
         }
 
+
         binding.edit.setOnClickListener {
             val intent = Intent(this, WriteActivity::class.java)
             intent.putExtra("day", dayText)
@@ -99,14 +100,8 @@ class ViewJournalActivity : AppCompatActivity() {
         }
 
         binding.delete.setOnClickListener {
-            Toast.makeText(this, "Journal Successfully Deleted !!", Toast.LENGTH_SHORT).show()
 
-            val db = FirebaseFirestore.getInstance()
-            val uid = FirebaseAuth.getInstance().currentUser!!.uid
-            val doc_id = "$uid-$dayText-$monthText-$yearText"
-            val docRef = db.collection("Journals").document(doc_id)
-
-            docRef.delete()
+            journalRef.delete()
                 .addOnSuccessListener {
                     Toast.makeText(this, "Journal Successfully Deleted !!", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, MainActivity::class.java))
@@ -119,7 +114,12 @@ class ViewJournalActivity : AppCompatActivity() {
         }
 
         binding.emotion.setOnClickListener{
-            startActivity(Intent(this, ReflectionActivity::class.java))
+            val intent:Intent = Intent(this, ReflectionActivity::class.java)
+            intent.putExtra("uid", uid)
+            intent.putExtra("day", dayText)
+            intent.putExtra("month", monthText)
+            intent.putExtra("year", yearText)
+            startActivity(intent)
         }
     }
 

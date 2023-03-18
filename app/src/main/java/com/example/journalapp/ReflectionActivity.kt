@@ -2,18 +2,19 @@ package com.example.journalapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.journalapp.databinding.ActivityReflectionBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ReflectionActivity : AppCompatActivity() {
+
     private lateinit var recyclerView:RecyclerView
     private lateinit var db:FirebaseFirestore
     private lateinit var binding:ActivityReflectionBinding
-    private lateinit var emotion_lst:ArrayList<String>
     private lateinit var emotionAdapter:EmotionAdapter
-
+    private lateinit var emotion_lst:ArrayList<String>;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,27 +22,39 @@ class ReflectionActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         recyclerView = binding.emotionRecyclerView
-        emotion_lst = ArrayList()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
+
         db = FirebaseFirestore.getInstance()
 
-        emotion_lst.add("Sad-50%")
-        emotion_lst.add("Happy-10%")
-        emotion_lst.add("Fear-20%")
-        emotion_lst.add("Anger-20%")
+        val day = intent.getStringExtra("day")
+        val month = intent.getStringExtra("month")
+        val year = intent.getStringExtra("year")
+        val uid = intent.getStringExtra("uid")
 
-        emotionAdapter = EmotionAdapter(emotion_lst)
+        val doc_id = "$uid-$day-$month-$year"
 
-        recyclerView.adapter = emotionAdapter
-        val linearLayoutManager:LinearLayoutManager = LinearLayoutManager(this)
+        emotion_lst = ArrayList();
 
-        recyclerView.layoutManager = linearLayoutManager
+        Log.d("ERROR","In ReflectionActivity!!")
 
-        get_emotions()
-    }
+        db.collection("Journals")
+            .document(doc_id)
+            .get()
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val document = it.result
+                    val emotion_map:Map<String,String> = document.get("emotions") as HashMap<String,String>
+                    Log.d("Emotions",emotion_map.toString())
+                    val keys = emotion_map.keys
+                    for(key in keys) emotion_lst.add("$key-${emotion_map[key]}")
 
-    private fun get_emotions(){
+                    emotionAdapter = EmotionAdapter(emotion_lst,this)
 
+                    recyclerView.adapter = emotionAdapter
+
+                } else Log.e("Error fetching document", "Document Varla vro!!")
+
+            }
     }
 }
