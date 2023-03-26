@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import android.window.OnBackInvokedDispatcher
+import androidx.appcompat.app.AlertDialog
 import com.example.journalapp.databinding.ActivityViewJournalBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -19,6 +22,7 @@ class ViewJournalActivity : AppCompatActivity() {
     private lateinit var monthText: String
     private lateinit var yearText: String
     private lateinit var liked_txt: String
+    private lateinit var journalRef:DocumentReference
 
     val db = FirebaseFirestore.getInstance()
     val uid = FirebaseAuth.getInstance().currentUser!!.uid
@@ -39,7 +43,7 @@ class ViewJournalActivity : AppCompatActivity() {
         binding.monthYear.text = String.format(getString(R.string.month_year), monthText, yearText)
 
         val doc_id = "$uid-$dayText-$monthText-$yearText"
-        val journalRef = db.collection("Journals").document(doc_id)
+        journalRef = db.collection("Journals").document(doc_id)
 
         val title = binding.title
         val content = binding.content
@@ -100,17 +104,7 @@ class ViewJournalActivity : AppCompatActivity() {
         }
 
         binding.delete.setOnClickListener {
-
-            journalRef.delete()
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Journal Successfully Deleted !!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                }
-                .addOnFailureListener {
-                    Log.d("ERROR","Error Vro !!");
-                }
-
+            showAlertDialog()
         }
 
         binding.emotion.setOnClickListener{
@@ -120,6 +114,31 @@ class ViewJournalActivity : AppCompatActivity() {
             intent.putExtra("month", monthText)
             intent.putExtra("year", yearText)
             startActivity(intent)
+        }
+    }
+
+    private fun showAlertDialog(){
+        val view:View = layoutInflater.inflate(R.layout.delete_dialog_layout, null)
+        val builder:AlertDialog.Builder = AlertDialog.Builder(this,R.style.dialog)
+        builder.setView(view).create()
+        val dialog:AlertDialog = builder.show()
+
+
+
+        view.findViewById<TextView>(R.id.yes).setOnClickListener {
+            journalRef.delete()
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Journal Successfully Deleted !!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                .addOnFailureListener {
+                    Log.d("ERROR","Error Vro !!");
+                }
+        }
+
+        view.findViewById<TextView>(R.id.no).setOnClickListener {
+            dialog.cancel()
         }
     }
 

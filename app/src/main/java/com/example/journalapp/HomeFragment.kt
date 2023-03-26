@@ -2,6 +2,7 @@ package com.example.journalapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -71,7 +72,13 @@ class HomeFragment : Fragment() {
     private fun startDaysFragment(month: String) {
         val daysFragment = DaysFragment()
         val bundle = Bundle()
-        val year = view?.findViewById<EditText>(R.id.year)?.text.toString()
+        val editText = view?.findViewById<EditText>(R.id.year)
+        editText?.maxLines = 1
+        editText?.inputType = InputType.TYPE_CLASS_TEXT
+
+        val year = editText?.text.toString()
+
+
         if((year.toString()).length==4){
             try{    /*Now, you have to create a Hashset called 'JournalDates' and populate it here!! And then you pass it to the 'DaysFragment' which in turn is passed to the
                       'CalendarAdapter' class to place the red dots on 'OnBindViewHolder()'. So, After placing the red dots properly, Now, when a date is clicked in the 'DaysFragment'

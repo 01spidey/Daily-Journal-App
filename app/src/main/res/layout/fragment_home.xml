@@ -110,6 +110,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/rect_card_white_fill"
                     android:hint="Enter Year"
+                    android:maxLines="1"
+                    android:inputType="text"
                     android:textColorHint="@color/grey"
                     android:textSize="17sp"
                     android:gravity="center"

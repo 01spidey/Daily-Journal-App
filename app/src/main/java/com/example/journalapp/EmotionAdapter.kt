@@ -22,7 +22,7 @@ class EmotionAdapter(
     }
 
     override fun getItemCount(): Int {
-        return emotion_lst.size
+        return emotion_lst.size 
     }
 
     override fun onBindViewHolder(holder: EmotionViewHolder, position: Int) {
@@ -44,5 +44,4 @@ class EmotionAdapter(
         val emotion_percent = itemView.findViewById<TextView>(R.id.emotion_percent)
         var emotion_bar = itemView.findViewById<View>(R.id.emotion_bar)
     }
-
 }

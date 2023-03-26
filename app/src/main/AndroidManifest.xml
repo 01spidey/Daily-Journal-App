@@ -8,8 +8,8 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/reading_time_svg"
+        android:label="Reflect"
         android:supportsRtl="true"
         android:theme="@style/Theme.JournalApp"
         tools:targetApi="31">
